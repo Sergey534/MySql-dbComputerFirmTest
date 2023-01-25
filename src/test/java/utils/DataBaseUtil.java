@@ -1,6 +1,7 @@
 package utils;
 
 import businessObjects.Table;
+import businessObjects.Table.Row;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -24,9 +25,9 @@ public class DataBaseUtil {
         for (int i = 1; i <= columnCount; i++) {
           columnsName[i - 1] = metaData.getColumnName(i);
         }
-        List<List<String>> rowsList = new ArrayList<>();
+        List<Table.Row> rowsList = new ArrayList<>();
         List<String> columnsList = Arrays.asList(columnsName);
-        rowsList.add(columnsList);
+        rowsList.add(new Row(columnsList));
         while (resultSet.next()) {
           List<String> row = new ArrayList<>();
           for (int i = 0; i < columnsName.length; i++) {
@@ -38,10 +39,9 @@ public class DataBaseUtil {
             }
             row.add(value);
           }
-          rowsList.add(row);
+          rowsList.add(new Row(row));
         }
         table = new Table(rowsList);
-
       }
     } catch (Exception ex) {
       MyLogger.info("Connection failed.");

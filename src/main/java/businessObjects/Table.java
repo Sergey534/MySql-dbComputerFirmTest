@@ -8,15 +8,15 @@ import lombok.Data;
 @AllArgsConstructor
 public class Table {
 
-  private List<List<String>> rows;
+  private List<Row> rows;
 
   public void printTable() {
-    int columnsCount = rows.get(0).size();
+    int columnsCount = rows.get(0).rowElement.size();
     int columnsMaxSize[] = new int[columnsCount];
 
     for (int i = 0; i < rows.size(); i++) {
-      for (int b = 0; b < rows.get(i).size(); b++) {
-        int wordSize = rows.get(i).get(b).length();
+      for (int b = 0; b < rows.get(i).rowElement.size(); b++) {
+        int wordSize = rows.get(i).rowElement.get(b).length();
         if (wordSize > columnsMaxSize[b]) {
           columnsMaxSize[b] = wordSize;
         }
@@ -37,11 +37,20 @@ public class Table {
     headAlignFormat = headAlignFormat + "+";
     System.out.format(headAlignFormat + "%n");
     for (int i = 0; i < rows.size(); i++) {
-      String[] row = rows.get(i).toArray(new String[rows.get(i).size()]);
+      String[] row = rows.get(i).rowElement.toArray(new String[rows.get(i).rowElement.size()]);
       System.out.format(mainAlignFormat, row);
       System.out.format("%n");
       System.out.format(headAlignFormat + "%n");
     }
 
   }
+
+  @AllArgsConstructor
+  @Data
+  public static class Row {
+
+    private List<String> rowElement;
+
+  }
+
 }

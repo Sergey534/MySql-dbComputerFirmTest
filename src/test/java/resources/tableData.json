@@ -1,0 +1,11 @@
+{
+  "request1ExpectedTable": {
+    "rows":[
+      {"rowElement":["model","speed","hd"]},
+      {"rowElement":["1232","500","10.0"]},
+      {"rowElement":["1232","450","8.0"]},
+      {"rowElement":["1232","450","10.0"]},
+      {"rowElement":["1260","500","10.0"]}
+    ]
+  }
+}
