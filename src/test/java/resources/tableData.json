@@ -7,5 +7,14 @@
       {"rowElement":["1232","450","10.0"]},
       {"rowElement":["1260","500","10.0"]}
     ]
+  },
+
+  "request2ExpectedTable": {
+    "rows":[
+      {"rowElement":["maker"]},
+      {"rowElement":["A"]},
+      {"rowElement":["B"]},
+      {"rowElement":["E"]}
+    ]
   }
 }

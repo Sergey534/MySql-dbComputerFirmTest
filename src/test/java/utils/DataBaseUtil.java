@@ -43,8 +43,9 @@ public class DataBaseUtil {
         }
         table = new Table(rowsList);
       }
+
     } catch (Exception ex) {
-      MyLogger.info("Connection failed.");
+      MyLogger.info("exception in getRequest method ");
       throw new RuntimeException("exception in getRequest method");
     }
     return table;

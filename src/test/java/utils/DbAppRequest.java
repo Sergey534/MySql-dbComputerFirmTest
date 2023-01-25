@@ -15,8 +15,9 @@ public class DbAppRequest {
             connection = DriverManager.getConnection(url, username, password);
         }
         catch (SQLException e) {
-            MyLogger.info("sql exception");
-            e.printStackTrace();
+            MyLogger.info("exception in method getConnection");
+            throw  new RuntimeException("connection exception ");
+
         }
         return connection;
     }

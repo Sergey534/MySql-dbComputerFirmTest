@@ -13,11 +13,18 @@ public class DbTest {
   @Test
   public void DbTest() {
 
-    MyLogger.info("Exercise 1: Find the model number, speed and hard drive capacity for all the PCs with prices below $500.\n"
-        + "Result set: model, speed, hd.");
-    String request = DataManager.getRequestData("request1");
-    Table request1Table = DataBaseUtil.getRequest(request);
-    Assert.assertEquals(request1Table, JsonUtil.getTableFromFile("request1ExpectedTable"));
-    request1Table.printTable();
+    MyLogger.info("request 1: Find the model number, speed and hard drive capacity for all the PCs with prices below $500."
+        + " Result set: model, speed, hd.");
+    Table request1Table = DataBaseUtil.getRequest(DataManager.getRequestData("request1"));
+    Assert.assertEquals(request1Table, JsonUtil.getTableFromFile("request1ExpectedTable"),
+        "actual and expected table  is not equals!");
+    MyLogger.info("request 1 Table:\n" + request1Table.getTable());
+
+    MyLogger.info("request 2:  Find the makers of PCs with a processor speed of 450 MHz or more. Result set: maker.");
+    Table request2Table = DataBaseUtil.getRequest(DataManager.getRequestData("request2"));
+    Assert.assertEquals(request2Table, JsonUtil.getTableFromFile("request2ExpectedTable"),
+        "actual and expected table  is not equals!");
+    MyLogger.info("request 2 Table:\n" + request2Table.getTable());
+
   }
 }
