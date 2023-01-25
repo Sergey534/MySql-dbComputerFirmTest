@@ -10,7 +10,7 @@ public class Table {
 
   private List<Row> rows;
 
-  public void printTable() {
+  public String getTable() {
     int columnsCount = rows.get(0).rowElement.size();
     int columnsMaxSize[] = new int[columnsCount];
 
@@ -22,27 +22,26 @@ public class Table {
         }
       }
     }
-    String headAlignFormat = "";
-    String mainAlignFormat = "";
+    StringBuilder headAlignFormat = new StringBuilder();
+    StringBuilder mainAlignFormat = new StringBuilder();
 
     for (int i = 0; i < columnsCount; i++) {
-      String line = "";
+      StringBuilder line = new StringBuilder();
       for (int b = 0; b < columnsMaxSize[i]; b++) {
-        line = line + "-";
+        line.append("-");
       }
-      mainAlignFormat = mainAlignFormat + "|" + "%-" + columnsMaxSize[i] + "s" + "";
-      headAlignFormat = headAlignFormat + "+" + line + "";
+      mainAlignFormat.append("|").append("%-").append(columnsMaxSize[i]).append("s");
+      headAlignFormat.append("+").append(line);
     }
-    mainAlignFormat = mainAlignFormat + "|";
-    headAlignFormat = headAlignFormat + "+";
-    System.out.format(headAlignFormat + "%n");
+    mainAlignFormat.append("|");
+    headAlignFormat.append("+");
+    StringBuilder table = new StringBuilder(headAlignFormat + "\n");
     for (int i = 0; i < rows.size(); i++) {
       String[] row = rows.get(i).rowElement.toArray(new String[rows.get(i).rowElement.size()]);
-      System.out.format(mainAlignFormat, row);
-      System.out.format("%n");
-      System.out.format(headAlignFormat + "%n");
+      table.append(String.format(mainAlignFormat.toString(), row)).append("\n");
+      table.append(headAlignFormat).append("\n");
     }
-
+    return table.toString();
   }
 
   @AllArgsConstructor
