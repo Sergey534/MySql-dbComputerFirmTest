@@ -1,4 +1,5 @@
 {
   "request1": "SELECT model, speed, hd FROM PC\nWHERE price < 500\n",
-  "request2": "SELECT DISTINCT maker FROM Product\nINNER JOIN PC ON speed>='450' AND Product.model = PC.model\n"
+  "request2": "SELECT DISTINCT maker FROM Product\nINNER JOIN PC ON speed>='450' AND Product.model = PC.model\n",
+  "request3": "SELECT DISTINCT Product.type,Laptop.model,Laptop.speed\nFROM Product, Laptop\nWHERE type = 'Laptop' AND Laptop.model=Product.model AND\n Laptop.speed < ALL(SELECT speed\n FROM PC\n )"
 }

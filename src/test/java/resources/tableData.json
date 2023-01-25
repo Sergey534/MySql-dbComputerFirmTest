@@ -16,5 +16,12 @@
       {"rowElement":["B"]},
       {"rowElement":["E"]}
     ]
+  },
+
+  "request3ExpectedTable": {
+    "rows":[
+      {"rowElement":["type","model","speed"]},
+      {"rowElement":["Laptop","1298","350"]}
+    ]
   }
 }
