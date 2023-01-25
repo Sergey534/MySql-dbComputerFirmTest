@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
-public class JSonReaderUtil {
+public class JsonReaderUtil {
 
     public static String readJsonFile(String path, String key){
         Reader reader = null;

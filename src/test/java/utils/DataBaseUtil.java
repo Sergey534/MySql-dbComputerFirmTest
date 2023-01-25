@@ -1,71 +1,52 @@
 package utils;
 
+import businessObjects.Table;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DataBaseUtil {
 
-      public static String getRequest(String SqlRequest, String[] columnsName){
-            String result = null;
-            try{
-                  Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-                  try (Connection conn = DbAppRequest.getConnection()){
-                        Statement statement = conn.createStatement();
-                        ResultSet resultSet = statement.executeQuery(SqlRequest);
-
-                        ArrayList<ArrayList<String>> rowList = new ArrayList<>();
-                        int[] maxRowSize = new int[columnsName.length];
-
-                        while(resultSet.next()){
-                            ArrayList<String> arrayList = new ArrayList<>();
-                            for(int i = 0;i < columnsName.length;i++){
-                                String value = "";
-                                try{
-                                    value = "| "+ resultSet.getObject(columnsName[i]).toString()+" | ";
-                                }
-                                catch (NullPointerException e){
-                                    value = "null";
-                                }
-                                arrayList.add(value);
-                                if(maxRowSize[i]<value.length()){
-                                    maxRowSize[i]=value.length();
-                                }
-                            }
-                            rowList.add(arrayList);
-                        }
-
-                        int maxRow = maxRowSize[maxRowSize.length-1];
-                        for(int i = 0;i < columnsName.length;i++){
-                            maxRow = maxRow+maxRowSize[i];
-                        }
-
-                        String table ="";
-                        for(int i = 0;i < columnsName.length;i++){
-                            columnsName[i] = StringUtil.addSpaces(columnsName[i],maxRowSize[i]);
-                            table = table+columnsName[i];
-                        }
-                        table = table+"\n";
-                        table = table+StringUtil.addBorder(maxRow)+"\n";
-
-                        for(ArrayList<String> rowsList :rowList){
-                            for(int i=0;i<columnsName.length;i++){
-                                rowsList.set(i,StringUtil.addSpaces(rowsList.get(i),maxRowSize[i]));
-                            }
-                            for(int i=0;i<columnsName.length;i++){
-                                table = table+rowsList.get(i);
-                            }
-                            table = table+"\n";
-                            table = table+StringUtil.addBorder(maxRow)+"\n";
-                        }
-                        result = table;
-                  }
+  public static Table getRequest(String SqlRequest) {
+    Table table;
+    try {
+      Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+      try (Connection conn = DbAppRequest.getConnection()) {
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery(SqlRequest);
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        String[] columnsName = new String[columnCount];
+        for (int i = 1; i <= columnCount; i++) {
+          columnsName[i - 1] = metaData.getColumnName(i);
+        }
+        List<List<String>> rowsList = new ArrayList<>();
+        List<String> columnsList = Arrays.asList(columnsName);
+        rowsList.add(columnsList);
+        while (resultSet.next()) {
+          List<String> row = new ArrayList<>();
+          for (int i = 0; i < columnsName.length; i++) {
+            String value = "";
+            try {
+              value = resultSet.getObject(columnsName[i]).toString();
+            } catch (NullPointerException e) {
+              value = "null";
             }
-            catch(Exception ex){
-                 MyLogger.info("Connection failed.");
-                 throw new RuntimeException("exception in getRequest method");
-            }
-        return result;
+            row.add(value);
+          }
+          rowsList.add(row);
+        }
+        table = new Table(rowsList);
+
       }
+    } catch (Exception ex) {
+      MyLogger.info("Connection failed.");
+      throw new RuntimeException("exception in getRequest method");
+    }
+    return table;
+  }
 }
