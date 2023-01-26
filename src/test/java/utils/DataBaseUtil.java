@@ -30,10 +30,10 @@ public class DataBaseUtil {
         rowsList.add(new Row(columnsList));
         while (resultSet.next()) {
           List<String> row = new ArrayList<>();
-          for (int i = 0; i < columnsName.length; i++) {
-            String value = "";
+          for (String s : columnsName) {
+            String value;
             try {
-              value = resultSet.getObject(columnsName[i]).toString();
+              value = resultSet.getObject(s).toString();
             } catch (NullPointerException e) {
               value = "null";
             }
@@ -45,7 +45,7 @@ public class DataBaseUtil {
       }
 
     } catch (Exception ex) {
-      MyLogger.info("exception in getRequest method ");
+      MyLogger.error("exception in getRequest method ");
       throw new RuntimeException("exception in getRequest method");
     }
     return table;

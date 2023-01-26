@@ -11,11 +11,12 @@ import java.util.Map;
 public class JsonUtil {
 
   public static String readJsonFile(String path, String key) {
-    Reader reader = null;
+    Reader reader;
     try {
       reader = Files.newBufferedReader(Paths.get(path));
     } catch (IOException e) {
-      e.printStackTrace();
+      MyLogger.error(" IOException in method readJsonFile");
+      throw new RuntimeException("IOException");
     }
     Gson gson = new Gson();
     Map<?, ?> map = gson.fromJson(reader, Map.class);

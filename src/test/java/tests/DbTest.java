@@ -11,7 +11,7 @@ import utils.MyLogger;
 public class DbTest {
 
   @Test
-  public void DbTest() {
+  public void dbTest() {
     MyLogger.info("DbTest start");
     MyLogger.info("request 1: Find the model number, speed and hard drive capacity for all the PCs with prices below $500."
         + " Result set: model, speed, hd.");
