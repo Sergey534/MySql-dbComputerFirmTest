@@ -32,6 +32,13 @@ public class DbTest {
     Assert.assertEquals(request3Table, JsonUtil.getTableFromFile("request3ExpectedTable"),
         "tables is not equals!");
     MyLogger.info("request 3 Table:\n" + request3Table.getTable());
+
+    MyLogger.info("request 4:  Find out the maximum PC price for each maker having models in the PC table. Result set: maker,"
+        + " maximum price.");
+    Table request4Table = DataBaseUtil.getRequest(DataManager.getRequestData("request4"));
+    Assert.assertEquals(request4Table, JsonUtil.getTableFromFile("request4ExpectedTable"),
+        "tables is not equals!");
+    MyLogger.info("request 4 Table:\n" + request4Table.getTable());
     MyLogger.info("DbTest finish");
   }
 }

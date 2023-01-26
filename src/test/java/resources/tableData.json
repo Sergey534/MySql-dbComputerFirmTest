@@ -23,5 +23,14 @@
       {"rowElement":["type","model","speed"]},
       {"rowElement":["Laptop","1298","350"]}
     ]
+  },
+
+  "request4ExpectedTable": {
+    "rows":[
+      {"rowElement":["maker","MAX_PRICE"]},
+      {"rowElement":["A","980.00"]},
+      {"rowElement":["B","850.00"]},
+      {"rowElement":["E","350.00"]}
+    ]
   }
 }
