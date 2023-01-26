@@ -39,8 +39,11 @@ public class Table {
     for (int i = 0; i < rows.size(); i++) {
       String[] row = rows.get(i).rowElement.toArray(new String[rows.get(i).rowElement.size()]);
       table.append(String.format(mainAlignFormat.toString(), row)).append("\n");
-      table.append(headAlignFormat).append("\n");
+      if (i == 0) {
+        table.append(headAlignFormat).append("\n");
+      }
     }
+    table.append(headAlignFormat).append("\n");
     return table.toString();
   }
 
