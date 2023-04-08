@@ -48,6 +48,9 @@ public class DataBaseUtil {
       MyLogger.error("exception in getRequest method ");
       throw new RuntimeException("exception in getRequest method");
     }
+    finally {
+      DbAppRequest.disconnect();
+    }
     return table;
   }
 }
